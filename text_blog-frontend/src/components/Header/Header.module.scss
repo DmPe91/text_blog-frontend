@@ -1,0 +1,40 @@
+header {
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 20vh;
+  border-bottom: 5px solid #6b8e23;
+
+  .logo {
+    img {
+      width: 12vw;
+      height: 17vh;
+    }
+  }
+  .tittle {
+    font-weight: bold;
+    color: #6b8e23;
+    h1 {
+      font-size: 50px;
+      margin: auto;
+    }
+    p {
+      font-size: 20px;
+      margin: auto;
+    }
+  }
+  .authorization {
+    padding-right: 5vw;
+    button {
+      background: #6b8e23;
+      margin-left: 1vw;
+      color: white;
+    }
+    button:hover {
+      background: white;
+      color: #6b8e23;
+      border: 1px solid #6b8e23;
+    }
+  }
+}

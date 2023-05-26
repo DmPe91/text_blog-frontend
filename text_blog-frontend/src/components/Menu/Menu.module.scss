@@ -1,0 +1,14 @@
+.menu {
+  grid-area: menu;
+
+  ul {
+    li {
+      padding: 10px;
+    }
+    li:hover {
+      cursor: pointer;
+      border-bottom: 5px solid #98fb98;
+      font-weight: bold;
+    }
+  }
+}
