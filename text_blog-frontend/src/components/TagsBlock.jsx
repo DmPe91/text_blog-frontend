@@ -7,10 +7,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import TagIcon from "@mui/icons-material/Tag";
 import ListItemText from "@mui/material/ListItemText";
 import Skeleton from "@mui/material/Skeleton";
-
+import { sortTags } from "../redux/slices/post";
 import { SideBlock } from "./SideBlock";
-
+import { useDispatch } from "react-redux";
 export const TagsBlock = ({ items, isLoading = true }) => {
+  const dispatch = useDispatch();
+  const onTags = (param) => {
+    dispatch(sortTags(param));
+  };
   return (
     <SideBlock title="Тэги">
       <List>
@@ -27,7 +31,7 @@ export const TagsBlock = ({ items, isLoading = true }) => {
                 {isLoading ? (
                   <Skeleton width={100} />
                 ) : (
-                  <ListItemText primary={name} />
+                  <ListItemText primary={name} onClick={onTags(name)} />
                 )}
               </ListItemButton>
             </ListItem>

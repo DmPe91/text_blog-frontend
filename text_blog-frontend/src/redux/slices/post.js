@@ -1,10 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const { data } = await axios.get("/posts");
-  return data;
-});
+export const fetchPosts = createAsyncThunk(
+  "posts/fetchPosts",
+  async (params) => {
+    const { data } = await axios.get(`/posts/search?keyword=${params}`);
+    return data;
+  }
+);
 
 export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
   const { data } = await axios.get("/tags");
@@ -32,7 +35,9 @@ const initialState = {
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducer: {},
+  reducer: {
+    sortTags(state, actions) {},
+  },
   extraReducers: (builder) => {
     // получение статей
     builder.addCase(fetchPosts.pending, (state) => {
@@ -47,6 +52,7 @@ const postsSlice = createSlice({
       state.posts.items = [];
       state.posts.status = "error";
     });
+
     // получение тэгов
     builder.addCase(fetchTags.pending, (state) => {
       state.tags.items = [];
@@ -63,10 +69,12 @@ const postsSlice = createSlice({
     // удаление статей
     builder.addCase(fetchRemovePost.pending, (state, action) => {
       state.posts.items = state.posts.items.filter(
-        (obj) => obj._id !== action.payload
+        (obj) => obj._id !== action.meta.arg
       );
     });
   },
 });
 
 export const postsReducer = postsSlice.reducer;
+
+export const sortTags = postsSlice.actions;
