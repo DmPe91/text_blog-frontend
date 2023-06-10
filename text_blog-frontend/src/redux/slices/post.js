@@ -14,6 +14,14 @@ export const fetchTags = createAsyncThunk("posts/fetchTags", async () => {
   return data;
 });
 
+export const fetchSearchTags = createAsyncThunk(
+  "posts/fetchSearchTags",
+  async (name) => {
+    const { data } = await axios.get(`/tags/${name}`);
+    return data;
+  }
+);
+
 export const fetchRemovePost = createAsyncThunk(
   "posts/fetchRemovePost",
   async (id) => {
@@ -35,9 +43,7 @@ const initialState = {
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducer: {
-    sortTags(state, actions) {},
-  },
+  reducer: {},
   extraReducers: (builder) => {
     // получение статей
     builder.addCase(fetchPosts.pending, (state) => {
@@ -52,7 +58,19 @@ const postsSlice = createSlice({
       state.posts.items = [];
       state.posts.status = "error";
     });
-
+    // сортировка по тегам
+    builder.addCase(fetchSearchTags.pending, (state) => {
+      state.posts.items = [];
+      state.posts.status = "loading";
+    });
+    builder.addCase(fetchSearchTags.fulfilled, (state, action) => {
+      state.posts.items = action.payload;
+      state.posts.status = "loaded";
+    });
+    builder.addCase(fetchSearchTags.rejected, (state) => {
+      state.posts.items = [];
+      state.posts.status = "error";
+    });
     // получение тэгов
     builder.addCase(fetchTags.pending, (state) => {
       state.tags.items = [];
@@ -76,5 +94,3 @@ const postsSlice = createSlice({
 });
 
 export const postsReducer = postsSlice.reducer;
-
-export const sortTags = postsSlice.actions;

@@ -6,6 +6,7 @@ import Container from "@mui/material/Container";
 import { Home, FullPost, Registration, AddPost, Login } from "./pages";
 import { Header } from "./components/Header";
 import { fetchAuthMe, selectAuth } from "./redux/slices/auth";
+import { TagsSortPost } from "./pages/TagsSortPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
           <Route path="/posts/:id/edit" element={<AddPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />
+          <Route path="/tags/:id" element={<TagsSortPost />} />
         </Routes>
       </Container>
     </>
