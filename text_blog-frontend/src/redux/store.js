@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: {
     posts: postsReducer,
     auth: authReducer,
-    comment: commentsReducer,
+    comments: commentsReducer,
   },
 });
 

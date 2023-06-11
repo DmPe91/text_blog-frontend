@@ -2,22 +2,26 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
 export const fetchComments = createAsyncThunk(
-  "posts/fetchComments",
+  "comments/fetchComments",
   async () => {
     const { data } = await axios.get("/comments");
     return data;
   }
 );
 export const fetchPostComments = createAsyncThunk(
-  "posts/fetchPostComments",
-  async () => {
-    const { data } = await axios.get("/posts/comments");
+  "comments/fetchPostComments",
+  async (id) => {
+    const { data } = await axios.get(`/comments/${id}`);
     return data;
   }
 );
 
 const initialState = {
-  comments: {
+  lastComments: {
+    items: [],
+    status: "loading",
+  },
+  postComments: {
     items: [],
     status: "loading",
   },
@@ -29,29 +33,29 @@ const commentsSlice = createSlice({
   extraReducers: (builder) => {
     // получение последних 5 комментариев
     builder.addCase(fetchComments.pending, (state) => {
-      state.comments.items = [];
-      state.comments.status = "loading";
+      state.lastComments.items = [];
+      state.lastComments.status = "loading";
     });
     builder.addCase(fetchComments.fulfilled, (state, action) => {
-      state.comments.items = action.payload;
-      state.comments.status = "loaded";
+      state.lastComments.items = action.payload;
+      state.lastComments.status = "loaded";
     });
     builder.addCase(fetchComments.rejected, (state) => {
-      state.comments.items = [];
-      state.comments.status = "error";
+      state.lastComments.items = [];
+      state.lastComments.status = "error";
     });
     // получение комментариев конкретной статьи
     builder.addCase(fetchPostComments.pending, (state) => {
-      state.comments.items = [];
-      state.comments.status = "loading";
+      state.postComments.items = [];
+      state.postComments.status = "loading";
     });
     builder.addCase(fetchPostComments.fulfilled, (state, action) => {
-      state.comments.items = action.payload;
-      state.comments.status = "loaded";
+      state.postComments.items = action.payload;
+      state.postComments.status = "loaded";
     });
     builder.addCase(fetchPostComments.rejected, (state) => {
-      state.comments.items = [];
-      state.comments.status = "error";
+      state.postComments.items = [];
+      state.postComments.status = "error";
     });
   },
 });

@@ -1,5 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPostComments } from "../redux/slices/comment";
 import ReactMarkdown from "react-markdown";
 import { Post } from "../components/Post";
 import { AddComment } from "../components/AddComment";
@@ -8,11 +10,15 @@ import axios from "../axios";
 
 export const FullPost = () => {
   const [data, setData] = React.useState();
+  const { lastComments, postComments } = useSelector((state) => state.comments);
+
   const [isLoading, setLoading] = React.useState(true);
   const params = useParams();
-  console.log(params.id);
-  console.log(data);
+  console.log(postComments, postComments.status);
+  const dispatch = useDispatch();
+  const isCommentsLoading = postComments.status === "loading";
   React.useEffect(() => {
+    dispatch(fetchPostComments(params.id));
     axios
       .get(`/posts/${params.id}`)
       .then((res) => {
@@ -44,25 +50,7 @@ export const FullPost = () => {
       >
         <ReactMarkdown children={data.text} />
       </Post>
-      <CommentsBlock
-        items={[
-          {
-            user: {
-              fullName: "Вася Пупкин",
-              avatarUrl: "https://mui.com/static/images/avatar/1.jpg",
-            },
-            text: "Это тестовый комментарий 555555",
-          },
-          {
-            user: {
-              fullName: "Иван Иванов",
-              avatarUrl: "https://mui.com/static/images/avatar/2.jpg",
-            },
-            text: "When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top",
-          },
-        ]}
-        isLoading={false}
-      >
+      <CommentsBlock items={postComments.items} isLoading={isCommentsLoading}>
         <AddComment />
       </CommentsBlock>
     </>
