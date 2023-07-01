@@ -13,10 +13,14 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 
+import axios from "../../axios";
+
 import styles from "./Registration.module.scss";
 
 export const Registration = () => {
   const isAuth = useSelector(selectAuth);
+  const inputFileRef = React.useRef(null);
+  const [avatarUrl, setavatarUrl] = React.useState("");
   const dispatch = useDispatch();
   const {
     register,
@@ -31,8 +35,25 @@ export const Registration = () => {
     },
     mode: "onChange",
   });
+  const handleChangeFile = async (event) => {
+    try {
+      const formData = new FormData();
+      const file = event.target.files[0];
+      formData.append("image", file);
+      const { data } = await axios.post("/upload", formData);
+      setavatarUrl(data.url);
+    } catch (error) {
+      console.warn(error);
+      alert("Ошибка при загрузке файла");
+    }
+  };
   const onSubmit = async (values) => {
-    const data = await dispatch(fetchRegister(values));
+    const user = {
+      ...values,
+      avatarUrl,
+    };
+    console.log(user);
+    const data = await dispatch(fetchRegister(user));
     if (!data.payload) {
       return alert("Не удалось зарегестрироваться");
     }
@@ -53,6 +74,19 @@ export const Registration = () => {
         <div className={styles.avatar}>
           <Avatar sx={{ width: 100, height: 100 }} />
         </div>
+        <Button
+          onClick={() => inputFileRef.current.click()}
+          variant="outlined"
+          size="large"
+        >
+          добавить фото
+        </Button>
+        <input
+          ref={inputFileRef}
+          type="file"
+          onChange={handleChangeFile}
+          hidden
+        />
         <TextField
           className={styles.field}
           label="Полное имя"

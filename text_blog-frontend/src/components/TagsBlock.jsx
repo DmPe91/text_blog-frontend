@@ -14,10 +14,9 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 export const TagsBlock = ({ items, isLoading = true }) => {
   const params = useParams();
-  console.log(params.id);
+  console.log(items);
   const dispatch = useDispatch();
   const onTags = (param) => {
-    console.log(param);
     dispatch(fetchSearchTags(param));
   };
   return (

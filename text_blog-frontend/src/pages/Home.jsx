@@ -17,13 +17,15 @@ export const Home = () => {
   const userData = useSelector((state) => state.auth.data);
   const { posts, tags } = useSelector((state) => state.posts);
   const { lastComments, postComments } = useSelector((state) => state.comments);
-  const [sort, setSort] = React.useState("date");
+  const [sort, setSort] = React.useState(
+    localStorage.getItem("sort") || "date"
+  );
   const isPostLoading = posts.status === "loading";
   const isTagsLoading = tags.status === "loading";
   const isCommentsLoading = lastComments.status === "loading";
-  console.log(lastComments);
-  console.log(posts);
+
   React.useEffect(() => {
+    console.log(sort);
     dispatch(fetchPosts(sort));
     dispatch(fetchComments());
     dispatch(fetchTags());
@@ -31,10 +33,12 @@ export const Home = () => {
 
   const onDate = () => {
     setSort("date");
+    localStorage.setItem("sort", "date");
   };
 
   const onRating = () => {
     setSort("rating");
+    localStorage.setItem("sort", "rating");
   };
 
   return (
@@ -62,7 +66,7 @@ export const Home = () => {
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}
-                commentsCount={3}
+                commentsCount={obj.commentsCount}
                 tags={obj.tags}
                 isEditable={userData?._id === obj.user._id}
               />
