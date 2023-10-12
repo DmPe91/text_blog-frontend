@@ -16,6 +16,10 @@ export const Home = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.data);
   const { posts, tags } = useSelector((state) => state.posts);
+  const [index, setIndex] = useState(0);
+  const onTabClicked = (event, index) => {
+    setIndex(index);
+  };
   const { lastComments, postComments } = useSelector((state) => state.comments);
   const [sort, setSort] = React.useState(
     localStorage.getItem("sort") || "date"
@@ -25,7 +29,6 @@ export const Home = () => {
   const isCommentsLoading = lastComments.status === "loading";
 
   React.useEffect(() => {
-    console.log(sort);
     dispatch(fetchPosts(sort));
     dispatch(fetchComments());
     dispatch(fetchTags());
@@ -45,11 +48,12 @@ export const Home = () => {
     <>
       <Tabs
         style={{ marginBottom: 15 }}
-        value={0}
+        value={index}
+        onChange={onTabClicked}
         aria-label="basic tabs example"
       >
-        <Tab label="Новые" onClick={onDate} />
-        <Tab label="Популярные" onClick={onRating} />
+        <Tab label="По дате" onClick={onDate} value={0} />
+        <Tab label="По популярности" onClick={onRating} value={1} />
       </Tabs>
       <Grid container spacing={4}>
         <Grid xs={8} item>
@@ -61,7 +65,7 @@ export const Home = () => {
                 id={obj._id}
                 title={obj.title}
                 imageUrl={
-                  obj.imageUrl ? `http://localhost:1488${obj.imageUrl}` : ""
+                  obj.imageUrl ? `http://localhost:1487${obj.imageUrl}` : ""
                 }
                 user={obj.user}
                 createdAt={obj.createdAt}
