@@ -39,7 +39,7 @@ export const AddComment = () => {
       <div className={styles.root}>
         <Avatar
           classes={{ root: styles.avatar }}
-          src={user ? `http://localhost:1488${user.avatarUrl}` : " "}
+          src={user ? `https://tb-backend.onrender.com${user.avatarUrl}` : " "}
         />
         <div className={styles.form}>
           <TextField

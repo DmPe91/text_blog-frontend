@@ -65,7 +65,9 @@ export const Home = () => {
                 id={obj._id}
                 title={obj.title}
                 imageUrl={
-                  obj.imageUrl ? `http://localhost:1487${obj.imageUrl}` : ""
+                  obj.imageUrl
+                    ? `https://tb-backend.onrender.com${obj.imageUrl}`
+                    : ""
                 }
                 user={obj.user}
                 createdAt={obj.createdAt}

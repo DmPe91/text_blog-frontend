@@ -6,7 +6,7 @@ export const UserInfo = ({ avatarUrl, fullName, additionalText }) => {
     <div className={styles.root}>
       <img
         className={styles.avatar}
-        src={`http://localhost:1487${avatarUrl}`}
+        src={`https://tb-backend.onrender.com${avatarUrl}`}
         alt={fullName}
       />
       <div className={styles.userDetails}>

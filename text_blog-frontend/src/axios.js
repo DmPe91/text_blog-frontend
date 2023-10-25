@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:1487",
+  baseURL: "https://tb-backend.onrender.com",
 });
 
 instance.interceptors.request.use((config) => {

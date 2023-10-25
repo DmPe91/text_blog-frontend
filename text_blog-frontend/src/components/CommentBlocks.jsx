@@ -21,7 +21,7 @@ export const CommentsBlock = ({ items, children, isLoading = true }) => {
                 ) : (
                   <Avatar
                     alt={obj.fullName}
-                    src={`http://localhost:1487${obj.avatarUrl}`}
+                    src={`https://tb-backend.onrender.com${obj.avatarUrl}`}
                   />
                 )}
               </ListItemAvatar>

@@ -129,7 +129,7 @@ export const AddPost = () => {
           </Button>
           <img
             className={styles.image}
-            src={`http://localhost:1488${imageUrl}`}
+            src={`https://tb-backend.onrender.com${imageUrl}`}
             alt="Uploaded"
           />
         </>

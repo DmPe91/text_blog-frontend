@@ -40,7 +40,9 @@ export const FullPost = () => {
       <Post
         id={data._id}
         title={data.title}
-        imageUrl={data.imageUrl ? `http://localhost:1487${data.imageUrl}` : ""}
+        imageUrl={
+          data.imageUrl ? `https://tb-backend.onrender.com${data.imageUrl}` : ""
+        }
         user={data.user}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
