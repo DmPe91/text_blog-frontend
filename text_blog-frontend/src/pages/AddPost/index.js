@@ -20,6 +20,7 @@ export const AddPost = () => {
   const [title, setTitle] = React.useState("");
   const [tags, setTags] = React.useState("");
   const [imageUrl, setImageUrl] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const inputFileRef = React.useRef(null);
 
   const isEditing = Boolean(id);
@@ -81,7 +82,7 @@ export const AddPost = () => {
           alert("Не удалось загрузить статью");
         });
     }
-  }, []);
+  }, [id]);
 
   const options = React.useMemo(
     () => ({
