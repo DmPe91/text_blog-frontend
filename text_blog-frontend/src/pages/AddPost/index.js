@@ -16,7 +16,6 @@ export const AddPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const isAuth = useSelector(fetchUserData);
-  const [isLoading, setLoading] = React.useState("");
   const [text, setText] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [tags, setTags] = React.useState("");
@@ -96,7 +95,7 @@ export const AddPost = () => {
         delay: 1000,
       },
     }),
-    []
+    [],
   );
 
   if (!isAuth) {

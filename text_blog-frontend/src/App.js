@@ -10,11 +10,10 @@ import { TagsSortPost } from "./pages/TagsSortPost";
 
 function App() {
   const dispatch = useDispatch();
-  const isAuth = useSelector(selectAuth);
 
   React.useEffect(() => {
     dispatch(fetchAuthMe());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Container maxWidth="xl">

@@ -12,7 +12,6 @@ import { UserInfo } from "../UserInfo";
 import { PostSkeleton } from "./Skeleton";
 import { useDispatch } from "react-redux";
 import { fetchRemovePost } from "../../redux/slices/post";
-import { fetchPostComments } from "../../redux/slices/comment";
 
 export const Post = ({
   id,

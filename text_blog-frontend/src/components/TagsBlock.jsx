@@ -13,8 +13,6 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 export const TagsBlock = ({ items, isLoading = true }) => {
-  const params = useParams();
-
   const dispatch = useDispatch();
   const onTags = (param) => {
     dispatch(fetchSearchTags(param));
