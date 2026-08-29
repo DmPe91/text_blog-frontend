@@ -22,7 +22,7 @@ export const Home = () => {
   };
   const { lastComments, postComments } = useSelector((state) => state.comments);
   const [sort, setSort] = React.useState(
-    localStorage.getItem("sort") || "date"
+    localStorage.getItem("sort") || "date",
   );
   const isPostLoading = posts.status === "loading";
   const isTagsLoading = tags.status === "loading";
@@ -56,7 +56,7 @@ export const Home = () => {
         <Tab label="По популярности" onClick={onRating} value={1} />
       </Tabs>
       <Grid container spacing={4}>
-        <Grid xs={8} item>
+        <Grid xs={12} md={8} item>
           {(isPostLoading ? [...Array(5)] : posts.items).map((obj, index) =>
             isPostLoading ? (
               <Post key={index} isLoading={true} />
@@ -66,7 +66,7 @@ export const Home = () => {
                 title={obj.title}
                 imageUrl={
                   obj.imageUrl
-                    ? `https://tb-backend.onrender.com${obj.imageUrl}`
+                    ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}`
                     : ""
                 }
                 user={obj.user}
@@ -76,10 +76,10 @@ export const Home = () => {
                 tags={obj.tags}
                 isEditable={userData?._id === obj.user._id}
               />
-            )
+            ),
           )}
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={12} md={4} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           <CommentsBlock
             items={lastComments.items}

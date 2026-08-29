@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useParams } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchTags } from "../redux/slices/post";
 import { Post } from "../components/Post";
@@ -13,7 +12,7 @@ export const TagsSortPost = () => {
   const params = useParams();
   const userData = useSelector((state) => state.auth.data);
   const { posts, tags } = useSelector((state) => state.posts);
-  const { lastComments, postComments } = useSelector((state) => state.comments);
+  const { lastComments } = useSelector((state) => state.comments);
   const isPostLoading = posts.status === "loading";
   const isTagsLoading = tags.status === "loading";
   const isCommentsLoading = lastComments.status === "loading";
@@ -36,7 +35,7 @@ export const TagsSortPost = () => {
                 title={obj.title}
                 imageUrl={
                   obj.imageUrl
-                    ? `https://tb-backend.onrender.com${obj.imageUrl}`
+                    ? `${process.env.REACT_APP_API_URL}${obj.imageUrl}`
                     : ""
                 }
                 user={obj.user}
@@ -46,7 +45,7 @@ export const TagsSortPost = () => {
                 tags={obj.tags}
                 isEditable={userData?._id === obj.user._id}
               />
-            )
+            ),
           )}
         </Grid>
         <Grid xs={4} item>
