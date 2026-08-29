@@ -20,7 +20,7 @@ export const TagsSortPost = () => {
 
   React.useEffect(() => {
     dispatch(fetchSearchTags(params.id));
-  }, [params.id]);
+  }, [params.id, dispatch]);
   return (
     <>
       <h1>{params.id}</h1>

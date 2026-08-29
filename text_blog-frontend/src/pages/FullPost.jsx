@@ -10,7 +10,7 @@ import axios from "../axios";
 
 export const FullPost = () => {
   const [data, setData] = React.useState();
-  const { lastComments, postComments } = useSelector((state) => state.comments);
+  const { postComments } = useSelector((state) => state.comments);
 
   const [isLoading, setLoading] = React.useState(true);
   const params = useParams();
@@ -30,7 +30,7 @@ export const FullPost = () => {
 
         alert("Ошибка при получении статьи");
       });
-  }, []);
+  }, [params.id, dispatch]);
   if (isLoading) {
     return <Post isLoading={isLoading} />;
   }

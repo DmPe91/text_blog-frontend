@@ -20,7 +20,7 @@ export const Home = () => {
   const onTabClicked = (event, index) => {
     setIndex(index);
   };
-  const { lastComments, postComments } = useSelector((state) => state.comments);
+  const { lastComments } = useSelector((state) => state.comments);
   const [sort, setSort] = React.useState(
     localStorage.getItem("sort") || "date",
   );
@@ -32,7 +32,7 @@ export const Home = () => {
     dispatch(fetchPosts(sort));
     dispatch(fetchComments());
     dispatch(fetchTags());
-  }, [sort]);
+  }, [sort, dispatch]);
 
   const onDate = () => {
     setSort("date");

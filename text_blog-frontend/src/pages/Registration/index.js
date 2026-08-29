@@ -2,11 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {
-  fetchRegister,
-  fetchUserData,
-  selectAuth,
-} from "../../redux/slices/auth";
+import { fetchRegister, selectAuth } from "../../redux/slices/auth";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
@@ -25,7 +21,6 @@ export const Registration = () => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
